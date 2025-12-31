@@ -1,0 +1,28 @@
+# GitHub Action: Pull and Archive Docker Image
+#
+# 手动触发时，拉取 eclipse-temurin:25-jre-alpine 镜像并保存为 archive.tar
+#
+# 使用方法：在 Actions 页面手动运行此 workflow
+
+name: Pull and Archive Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull-and-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取 eclipse-temurin:25-jre-alpine 镜像
+        run: |
+          docker pull eclipse-temurin:25-jre-alpine
+
+      - name: 保存镜像为 archive.tar
+        run: |
+          docker save -o archive.tar eclipse-temurin:25-jre-alpine
+
+      - name: 上传 archive.tar 作为 workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: eclipse-temurin-25-jre-alpine-archive
+          path: archive.tar
