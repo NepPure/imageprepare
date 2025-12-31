@@ -13,16 +13,16 @@ jobs:
   pull-and-archive:
     runs-on: ubuntu-latest
     steps:
-      - name: 拉取 eclipse-temurin:25-jre-alpine 镜像
+      - name: 拉取 eclipse-temurin:25-jre 镜像
         run: |
-          docker pull eclipse-temurin:25-jre-alpine
+          docker pull eclipse-temurin:25-jre
 
       - name: 保存镜像为 archive.tar
         run: |
-          docker save -o archive.tar eclipse-temurin:25-jre-alpine
+          docker save -o archive.tar eclipse-temurin:25-jre
 
       - name: 上传 archive.tar 作为 workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: eclipse-temurin-25-jre-alpine-archive
+          name: archive
           path: archive.tar
